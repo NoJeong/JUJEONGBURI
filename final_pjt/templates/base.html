@@ -32,7 +32,7 @@
         <a class="nav-link" href="{% url 'accounts:update' %}">update</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'accounts:profile' request.user.username %}">profile</a>
+        {% comment %} <a class="nav-link" href="{% url 'accounts:profile' request.user.username %}">profile</a> {% endcomment %}
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'community:index' %}">Community</a>

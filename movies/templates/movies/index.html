@@ -1,27 +1,67 @@
 {% extends 'base.html' %}
-{% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'index.css' %}" />
 
 
 
 <div class= 'container'>
   <div class= 'row row-cols-1 row-cols-md-3'>
     {% for movie in movies %}
-      <div class='col mb-4'>
-        <div class='card'>
-          <img id='img' src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}' class="card-img-top" alt="">  
+    <div class=" col mb-4"style="cursor:pointer;"">
+      <div class='card h-100 position-relative'>
+        <div class='imageDiv h-100'>
+          <img id='img' src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}' class="card-img-top poster-img" alt="">  
           <div class="overlay">
-            <h5 class="card-title">{{movie.title}}</h5>
+            <h5 class="card-title"><strong>{{movie.title}}</strong></h5>
             <!-- <p class="card-text">{{movie.overview}}</p> -->
           </div>
-
-
+          
+          
         </div>
       </div>
+    </div>
     {% endfor %}
   </div>  
 </div>
 
+
+
+<style>
+.imageDiv {
+  z-index: 1;
+}
+
+.card:hover .imageDiv {
+  z-index: 0;
+  filter: brightness(50%);
+
+}
+
+.card {
+  transition: transform .3s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card-title {
+  color: white;
+  font-size: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  visibility:hidden;
+}
+.card:hover .card-title {
+  visibility:visible;
+}
+</style>
 {% endblock %}
+
