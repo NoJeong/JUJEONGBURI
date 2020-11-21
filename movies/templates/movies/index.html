@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'index.css' %}" />
+
+
+
+<div class= 'container'>
+  <div class= 'row row-cols-1 row-cols-md-3'>
+    {% for movie in movies %}
+      <div class='col mb-4'>
+        <div class='card'>
+          <img id='img' src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}' class="card-img-top" alt="">  
+          <div class="overlay">
+            <h5 class="card-title">{{movie.title}}</h5>
+            <!-- <p class="card-text">{{movie.overview}}</p> -->
+          </div>
+
+
+        </div>
+      </div>
+    {% endfor %}
+  </div>  
+</div>
+
+{% endblock %}
