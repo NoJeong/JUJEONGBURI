@@ -5,7 +5,11 @@ from .models import Movie
 # Create your views here.
 
 def first(request):
-    return render(request, 'movies/first.html')
+    movies = Movie.objects.order_by('pk')
+    context = {
+        'movies': movies,
+    }
+    return render(request, 'movies/first.html', context)
 
 
 def movie_list (request):
