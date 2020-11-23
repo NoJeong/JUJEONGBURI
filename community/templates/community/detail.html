@@ -6,37 +6,21 @@
   <div class="card my-5 mx-auto" style="width: 50rem; height: auto;">
     <div class="card-body">
       <h5 class="card-title">제목: {{ article.title }}</h5>
-      <p class="card-text">내용: {{ article.content }}</p>
+      <h6> 작성자 : {{article.user }}</h6>
+      <hr>
+      <p class="card-text">{{ article.content }}</p>
       <h6 class="card-subtitle mb-2 text-muted">작성 시각: {{ article.created_at }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">작성 시각: {{ article.updated_at }}</h6>
       
       
         {% if request.user == article.user %}
           {% comment %} <a href="{% url 'community:update' article.pk %}">UPDATE</a><br> {% endcomment %}
+          
           <form action="{% url 'community:delete' article.pk %}" method="POST" class='d-inline'>
             {% csrf_token %}
             <input class='btn btn-primary' type="submit" value="DELETE">
           </form>
           {% endif %}
-        <hr>
-        <h4>댓글 목록</h4>
-        {% if comments|length %}
-        <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
-        {% endif %}
-          {% for comment in comments %}
-          <div>
-            {{ comment.user }} - {{ comment.content }}
-            {% if request.user == comment.user %}
-            <form action="{% url 'community:comments_delete' article.pk comment.pk %}" method="POST" class="d-inline">
-              {% csrf_token %}
-              <i type="submit" class="fas fa-trash"></i> 
-              <input type="submit">
-            </form>
-            {% endif %}
-          </div>
-          {% empty %}
-          <p><b>댓글이 없어요..</b></p>
-          {% endfor %}
           <hr>
           {% if request.user.is_authenticated %}
           <form action="{% url 'community:create_comment' article.pk %}" method="POST">
@@ -47,12 +31,29 @@
           {% else %}
           <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
           {% endif %}
+
+          
+          <hr>
+          <h4>댓글 목록</h4>
+          {% for comment in comments %}
+          <div>
+            {{ comment.user }} - {{ comment.content }}
+            {% if request.user == comment.user %}
+            <form action="{% url 'community:comments_delete' article.pk comment.pk %}" method="POST" class="d-inline">
+              {% csrf_token %}
+              <input type="submit" value="x" class='btn btn-danger'>
+            </form>
+            {% endif %}
+          </div>
+          {% empty %}
+          <p><b>댓글이 없어요..</b></p>
+          {% endfor %}
           <br>
           <a href="{% url 'community:index' %}"><i class="far fa-hand-point-left" style="font-size: 30px;" ></i></a>
         </div>
       </div>
-</div>
-
+    </div>
+    
 <style>
   div, a {
     color:black;

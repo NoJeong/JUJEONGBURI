@@ -35,8 +35,58 @@
   {% endif %}
   <br>
   <a href="{% url 'movies:movie_list' %}"><i class="far fa-hand-point-left" style="font-size: 30px;" ></i></a>
+  <br><br>
 
-  
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe   
+      class="embed-responsive-item"
+      src='{{ video }}'
+      frameborder="0" 
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <br>
+  <br>
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">리뷰</th>
+        <th scope="col">평점</th>
+        <th scope="col">작성자</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for review in reviews%}
+      <tr>
+        <th scope="row">{{forloop.revcounter}}</th>
+        <td>{{review.content}}</td>
+        <td>
+        {% for star in N %}
+          {% if forloop.counter <= review.star %}
+          <i class="fas fa-star" style="color:crimson"></i>
+          {% else %}
+          <i class="fas fa-star" style="color:darkgray"></i>
+          {% endif %}
+        {% endfor %}
+      </td>
+      <td>{{ review.user }}&nbsp;&nbsp;&nbsp;&nbsp;
+        <form action="{% url 'movies:reviews_delete' movie.pk review.pk%}" method="POST" class='d-inline'>
+          {% csrf_token %}
+          <input type="submit" value='x' class='btn btn-danger'>
+        </form>
+
+
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+
+
 
 
 </div>

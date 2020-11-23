@@ -16,6 +16,7 @@ class Movie(models.Model):
     original_lang = models.CharField(max_length=50)
     release_date = models.DateField()
     genre = models.ManyToManyField(Genre, symmetrical=False, related_name='movies')
+    video = models.CharField(max_length=500)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies', blank=True)
 
 

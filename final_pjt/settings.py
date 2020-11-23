@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'community',
     'movies',
     'bootstrap4',
+    'embed_video',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
