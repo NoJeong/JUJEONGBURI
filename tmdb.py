@@ -26,13 +26,15 @@ for name in genre_response:
     genre.save()
 
 
-movie_url = f'https://api.themoviedb.org/3/movie/popular?api_key={apikey}&language=ko&page=2'
+movie_url = f'https://api.themoviedb.org/3/movie/popular?api_key={apikey}&language=ko&page=5'
 movie_response = requests.get(movie_url).json().get('results')
 
 for name in movie_response:
     movie = Movie()
     movie.title = name['title']
     movie.rank = name['vote_average']
+    movie.adult = name['adult']
+    movie.release_date = name['release_date']
     movie.audience = name['popularity']
     movie.poster_url = name['poster_path']
     movie.overview = name['overview']

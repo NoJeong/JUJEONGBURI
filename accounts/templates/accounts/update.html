@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %} 
 {% block content %}
-<h1>회원정보 수정</h1>
-<form action="" method="POST">
+<form class="my-5 mx-auto" action="" method="POST" style="max-width: 30rem;">
+  <h1>회원정보 수정</h1>
   {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit">
+  {% bootstrap_form form %}
+  <input type='submit' class='btn btn-warning' value='수정' style='color: white; font-weight: bold;'>
 </form>
+<style>
+  h1, form {
+    color: white;
+  }
+</style>
 {% endblock %}

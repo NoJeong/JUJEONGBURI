@@ -10,9 +10,11 @@ class Movie(models.Model):
     title = models.CharField(max_length=30)
     rank = models.IntegerField()
     audience = models.IntegerField()
+    adult = models.BooleanField()
     poster_url = models.TextField()
     overview = models.TextField()
     original_lang = models.CharField(max_length=50)
+    release_date = models.DateField()
     genre = models.ManyToManyField(Genre, symmetrical=False, related_name='movies')
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies', blank=True)
 
