@@ -26,26 +26,33 @@ def movie_list (request):
 
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-
+    reviews = movie.review_set.all()
+    review_form = ReviewForm()
     context= {
         'movie': movie,
+        'review_form': review_form,
+        'reviews' : reviews,
     }
     return render(request, 'movies/detail.html', context)
 
 
 
-@require_http_methods(['GET', 'POST'])
-def review_create(request):
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review =  form.save(commit=False)
-            review.user = request.user
-            review.save()
-            return  redirect('community:detail', article.pk)
-    else:
-        form = ReviewForm()
+@require_POST
+def review_create(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    review_form = ReviewForm(request.POST)
+    if review_form.is_valid():
+        review = review_form.save(commit=False)
+        review.movie = movie
+        review.user = request.user
+        review.save()
+        return redirect('movies:movie_detail', movie.pk)
     context = {
-        'form': form,
+        'review_form': review_form,
+        'movie': movie,
+        'reviews': movie.review_set.all(),
     }
-    return render(request, 'movies/review_create.html', context)
+    return render(request, 'movies/detail.html', context)
+
+
+

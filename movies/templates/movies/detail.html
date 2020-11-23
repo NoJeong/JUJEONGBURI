@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
 
 
@@ -20,20 +20,37 @@
       
       <h5>{{movie.overview|truncatechars:200}}</h5>
       <h5>언어: {{movie.original_lang}}</h5>
-
     </div>
   </div>
   <br>
-  <button class='btn btn-primary'>리뷰 작성</button>
+  {% if request.user.is_authenticated %}
+  <form action="{% url 'movies:review_create' movie.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form review_form %}
+    <input type='submit' class='btn btn-warning' style='color: white; font-weight: bold;'>
+    </input>
+  </form>
+  {% else %}
+  <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
+  {% endif %}
+  <br>
+  <a href="{% url 'movies:movie_list' %}"><i class="far fa-hand-point-left" style="font-size: 30px;" ></i></a>
+
+  
+
+
 </div>
 <style>
   div > h1{
     color: white;
     font-weight: 600;
   }
-  h5 {
+  h5{
     color:whitesmoke;
     font-weight: 600;
+  }
+  form {
+    color: white;
   }
 </style>
 {% endblock %}

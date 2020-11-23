@@ -19,11 +19,8 @@ class Movie(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies', blank=True)
 
 
-class Review(models.Model):
-    star_choice = (
-    (0, 0),(1, 1),(2, 2),(3, 3),(4, 4),(5, 5)
-    )    
-    star = models.IntegerField(choices=star_choice)
+class Review(models.Model): 
+    star = models.IntegerField()
     content = models.TextField()
     star = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add = True)
