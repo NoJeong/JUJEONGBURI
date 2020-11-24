@@ -8,11 +8,16 @@ from django.db.models import Q
 
 def first(request):
     movies = Movie.objects.order_by('pk')
+    movies_audience = Movie.objects.order_by('-audience')
+    movies_rank = Movie.objects.order_by('-rank')
+    movies_release_date = Movie.objects.order_by('-release_date')
     context = {
         'movies': movies,
+        'movies_audience': movies_audience,
+        'movies_rank': movies_rank,
+        'movies_release_date': movies_release_date,
     }
     return render(request, 'movies/first.html', context)
-
 
 def movie_list (request):
     movies = Movie.objects.order_by('-pk')

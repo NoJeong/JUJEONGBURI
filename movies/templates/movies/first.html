@@ -25,7 +25,14 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      {% if request.user.is_authenticated %}
+      {% if request.user.is_superuser %}
+      <li class="nav-item">
+        <a class="nav-link" href="http://127.0.0.1:8000/admin/">admin</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'community:index' %}">Community</a>
+      </li>
+      {% elif request.user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'community:index' %}">Community</a>
       </li>
@@ -87,11 +94,153 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+<br>
+<br>
 
-<section>
+{% comment %} <section>
   <div class= 'swiper-container'>
     <div class= 'swiper-wrapper'>
       {% for movie in movies %}
+      <div class="swiper-slide" style="cursor:pointer;">
+        <div class='card'>
+          <div class='.imageDiv'>
+            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}'>
+            <div class="overlay">
+              <a href="{% url 'movies:movie_detail' movie.pk %}">
+                <i id='plus' class="fas fa-plus-circle d-inline"></i>
+              </a>
+              <div class="card-title">
+                {{movie.title}}
+              </div>
+              <form class="form like-form"  data-movie-id="{{ movie.pk }}" method="POST" class="d-inline">
+                {% csrf_token %}
+                {% if request.user in movie.like_users.all %}
+                  <button class="btn btn-link" style="color: crimson;">
+                    <i id="like-{{ movie.pk }}" class="fas fa-heart fa-2x" style="color:crimson;"></i>
+                  </button>
+                {% else %}
+                  <button class="btn btn-link " style="color: white;">
+                    <i id="like-{{ movie.pk }}" class="fas fa-heart fa-2x" style="color:white;"></i>
+                  </button>
+                {% endif %}
+              </form>
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      {% endfor %}
+    </div>  
+    <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+    <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+    <div class="swiper-pagination"></div> -->
+    <div style="text-align:center; margin-top:5px;"></div>
+  </div>
+<!-- 네비게이션 -->
+    <!-- 페이징 -->
+</section>  {% endcomment %}
+<div>
+  <h2 class="ml-4 txt"><strong>많은 사람들이 본 영화순</strong></h2>
+</div>
+<section>
+  <div class= 'swiper-container'>
+    <div class= 'swiper-wrapper'>
+      {% for movie in movies_audience %}
+      <div class="swiper-slide" style="cursor:pointer;">
+        <div class='card'>
+          <div class='.imageDiv'>
+            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}'>
+            <div class="overlay">
+              <a href="{% url 'movies:movie_detail' movie.pk %}">
+                <i id='plus' class="fas fa-plus-circle d-inline"></i>
+              </a>
+              <div class="card-title">
+                {{movie.title}}
+              </div>
+              <form class="form like-form"  data-movie-id="{{ movie.pk }}" method="POST" class="d-inline">
+                {% csrf_token %}
+                {% if request.user in movie.like_users.all %}
+                  <button class="btn btn-link" style="color: crimson;">
+                    <i id="like-{{ movie.pk }}" class="fas fa-heart fa-2x" style="color:crimson;"></i>
+                  </button>
+                {% else %}
+                  <button class="btn btn-link " style="color: white;">
+                    <i id="like-{{ movie.pk }}" class="fas fa-heart fa-2x" style="color:white;"></i>
+                  </button>
+                {% endif %}
+              </form>
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      {% endfor %}
+    </div>  
+    <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+    <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+    <div class="swiper-pagination"></div> -->
+    <div style="text-align:center; margin-top:5px;"></div>
+  </div>
+<!-- 네비게이션 -->
+    <!-- 페이징 -->
+</section>  
+
+<div>
+  <h2 class="ml-4 txt"><strong>좋은 평가를 받았던 영화순</strong></h2>
+</div>
+<section>
+  <div class= 'swiper-container'>
+    <div class= 'swiper-wrapper'>
+      {% for movie in movies_rank %}
+      <div class="swiper-slide" style="cursor:pointer;">
+        <div class='card'>
+          <div class='.imageDiv'>
+            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}'>
+            <div class="overlay">
+              <a href="{% url 'movies:movie_detail' movie.pk %}">
+                <i id='plus' class="fas fa-plus-circle d-inline"></i>
+              </a>
+              <div class="card-title">
+                {{movie.title}}
+              </div>
+              <form class="form like-form"  data-movie-id="{{ movie.pk }}" method="POST" class="d-inline">
+                {% csrf_token %}
+                {% if request.user in movie.like_users.all %}
+                  <button class="btn btn-link" style="color: crimson;">
+                    <i id="like-{{ movie.pk }}" class="fas fa-heart fa-2x" style="color:crimson;"></i>
+                  </button>
+                {% else %}
+                  <button class="btn btn-link " style="color: white;">
+                    <i id="like-{{ movie.pk }}" class="fas fa-heart fa-2x" style="color:white;"></i>
+                  </button>
+                {% endif %}
+              </form>
+              
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      {% endfor %}
+    </div>  
+    <div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
+    <div class="swiper-button-prev"></div><!-- 이전 버튼 -->
+    <div class="swiper-pagination"></div> -->
+    <div style="text-align:center; margin-top:5px;"></div>
+  </div>
+<!-- 네비게이션 -->
+    <!-- 페이징 -->
+</section>  
+
+<div>
+  <h2 class="ml-4 txt"><strong>가장최근 나온 영화부터!</strong></h2>
+</div>
+<section>
+  <div class= 'swiper-container'>
+    <div class= 'swiper-wrapper'>
+      {% for movie in movies_release_date %}
       <div class="swiper-slide" style="cursor:pointer;">
         <div class='card'>
           <div class='.imageDiv'>
@@ -135,7 +284,9 @@
 </div>
 
 <style>
-
+.txt {
+  color: white;
+}
 .imageDiv {
   z-index: 1;
 }
@@ -166,6 +317,7 @@
 
 .card {
   transition: transform .3s;
+  border: black;
 }
 
 .card:hover {
