@@ -73,6 +73,7 @@
         {% endfor %}
       </td>
       <td>{{ review.user }}&nbsp;&nbsp;&nbsp;&nbsp;
+        
         <form action="{% url 'movies:reviews_delete' movie.pk review.pk%}" method="POST" class='d-inline'>
           {% csrf_token %}
           <input type="submit" value='x' class='btn btn-danger'>

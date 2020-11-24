@@ -16,6 +16,10 @@
         {% if request.user == article.user %}
           {% comment %} <a href="{% url 'community:update' article.pk %}">UPDATE</a><br> {% endcomment %}
           
+          <form action="{% url 'community:update' article.pk %}" method="POST" class='d-inline'>
+            {% csrf_token %}
+            <input class='btn btn-primary' type="submit" value="UPDATE">
+          </form>
           <form action="{% url 'community:delete' article.pk %}" method="POST" class='d-inline'>
             {% csrf_token %}
             <input class='btn btn-primary' type="submit" value="DELETE">

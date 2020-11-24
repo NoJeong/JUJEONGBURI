@@ -1,5 +1,6 @@
 from django import forms
 from .models import Article, Comment
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 
 
 class ArticleForm(forms.ModelForm):
@@ -23,18 +24,12 @@ class ArticleForm(forms.ModelForm):
     )
 
 
-    content = forms.CharField(
-        label='내용',
-        widget=forms.Textarea(
-            attrs={
-                'rows': 10
-            }
-        )
-    )
-
     class Meta:
         model = Article
         fields = ['purpose', 'title', 'content']
+        widgets = {
+            'content': SummernoteWidget(),
+        }
 
 
 class CommentForm(forms.ModelForm):

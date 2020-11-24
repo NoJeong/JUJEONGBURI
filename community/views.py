@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
+from django.contrib.auth.decorators import login_required
 
 
 def index_search(request):
@@ -118,5 +119,28 @@ def comments_delete(request, article_pk, comment_pk):
         if request.user == comment.user:
             comment.delete()
     return redirect('community:detail', article_pk)
+
+
+@login_required
+@require_http_methods(['GET', 'POST'])
+def update(request, article_pk):
+    # article = Article.objects.get(pk=pk)
+    article = get_object_or_404(Article, pk=article_pk)
+    # 수정하는 유저와, 게시글 작성 유저가 같은지 ?
+    if request.user == article.user:
+        if request.method == 'POST':
+            form = ArticleForm(request.POST, instance=article)
+            if form.is_valid():
+                form.save()
+                return redirect('community:detail', article.pk)
+        else:
+            form = ArticleForm(instance=article)
+    else:
+        return redirect('community:index')
+    context = {
+        'form': form,
+        'article': article,
+    }
+    return render(request, 'community/update.html', context)
 
 

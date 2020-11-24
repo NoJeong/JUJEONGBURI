@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 
-from .models import Movie, Review
+from .models import Movie, Review, Genre
 from .forms import ReviewForm
 from django.db.models import Q
 
@@ -19,13 +19,32 @@ def first(request):
     }
     return render(request, 'movies/first.html', context)
 
+
+
 def movie_list (request):
     movies = Movie.objects.order_by('-pk')
-    
+    genres = Genre.objects.all()
+    movies_filter=[]
+    n = range(3)
     context = {
         'movies': movies,
+        'genres': genres,
+        'n': n,
+        'movies_filter': movies_filter
     }
     return render(request, 'movies/index.html', context)
+
+
+def movie_filter(request, genre_pk):
+    genres= Genre.objects.all()
+    genre = Genre.objects.get(pk=genre_pk)
+    movies_filter = genre.movies.all()
+    context= {
+        'genres': genres,
+        'movies_filter': movies_filter
+    }
+    return render(request, 'movies/index.html', context)
+
 
 
 def movie_search(request):
@@ -36,6 +55,8 @@ def movie_search(request):
         query =request.GET.get('q')
         movies = Movie.objects.all().filter(Q(title__contains=query) | Q(overview__contains=query))
     return render(request, 'movies/index.html', {'query':query, 'movies': movies})
+
+
 
 
 
@@ -103,6 +124,7 @@ def like(request, movie_pk):
             'liked': liked,
             'count': movie.like_users.count(),
         }
+        print(like_status)
         return JsonResponse(like_status)
         # return redirect('articles:index')
     return redirect('accounts:login')

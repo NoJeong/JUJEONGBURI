@@ -27,7 +27,7 @@ for name in genre_response:
 
 
 
-movie_list = range(0, 500)
+movie_list = range(100, 500)
 movielist=[]
 
 for n in movie_list:
@@ -55,7 +55,9 @@ for n in movie_list:
             movie.video = video_id
             movie.original_lang =  data['original_language']
             movie.save()
-            for genre in data['genre_ids']:
-                movie.genre.add(genre)
+            for genre in data['genres']:
+                movie.genre.add(genre['id'])
     except:
         pass
+    
+# open("db.json","wb").write(open("db.json").read().decode("unicode_escape").encode("utf8"))

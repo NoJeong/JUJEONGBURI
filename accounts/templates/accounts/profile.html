@@ -4,8 +4,7 @@
 {% load static %}
 <div class="jumbotron">
   <h1 class="text-center"><strong>{{ person.username }}님의 프로필</strong></h1>
-  <img class="img" src="{% static '/ssunho.jpg'%}" class="rounded float-left">
-
+  <img class="img " src="{% static '/ssunho.jpg'%}" class="rounded float-left">
   <hr>
   <h2>{{ person.username }}가 좋아요한 영화</h2>
   {% for article in person.like_movies.all %}
