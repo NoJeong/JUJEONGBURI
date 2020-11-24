@@ -7,22 +7,27 @@
   <img class="img " src="{% static '/ssunho.jpg'%}" class="rounded float-left">
   <hr>
   <h2>{{ person.username }}가 좋아요한 영화</h2>
-  {% for article in person.like_movies.all %}
-    <div>{{ article.title }}</div>
-  {% empty%}
-    <div>좋아요한 영화가 없습니다.</div>
-  {% endfor %}
+  <h4 style="opacity: 0.9;"> {{ person.like_movies.all|length }} 편 </h4>
   <hr>
-  {{ person.like_movies.all|length }} 편
+  {% for movie in person.like_movies.all %}
+    <br>
+    <a href="{% url "movies:movie_detail" movie.pk%}" style="color:black"><strong>{{ movie.title }}</strong></a>
+    <br>
+  {% empty%}
+    <div><strong>좋아요한 영화가 없습니다.</strong> </div>
+  {% endfor %}
+ 
   <hr>
   <h2>{{ person.username }}가 리뷰한 영화</h2>
-  {% for review in person.review_set.all %}
-    <div>{{ review.movie.title }}</div>
-  {% empty%}
-    <div>리뷰한 영화가 없습니다.</div>
-  {% endfor %}
+  <h4 style="opacity: 0.9;">{{ person.review_set.all|length }} 편</h4>
   <hr>
-  {{ person.review_set.all|length }} 편
+  {% for review in person.review_set.all %}
+    <br>
+    <div><strong>{{ review.movie.title }}</strong></div>
+  {% empty%}
+    <div><strong>리뷰한 영화가 없습니다.</strong> </div>
+  {% endfor %}
+
   <hr>
 
 </div>

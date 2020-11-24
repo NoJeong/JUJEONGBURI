@@ -5,9 +5,11 @@ from django.views.decorators.http import require_GET, require_POST, require_http
 from .models import Movie, Review, Genre
 from .forms import ReviewForm
 from django.db.models import Q
+import datetime
+
 
 def first(request):
-    movies = Movie.objects.order_by('pk')
+    movies = Movie.objects.order_by('-pk')
     movies_audience = Movie.objects.order_by('-audience')
     movies_rank = Movie.objects.order_by('-rank')
     movies_release_date = Movie.objects.order_by('-release_date')
@@ -25,12 +27,30 @@ def movie_list (request):
     movies = Movie.objects.order_by('-pk')
     genres = Genre.objects.all()
     movies_filter=[]
-    n = range(3)
+
+    genre_date = request.GET.getlist('genre_list')
+    pick_date = request.GET.getlist('date_list')
+
+    if genre_date:
+        p_genre = genre_date[0]
+        genre = Genre.objects.get(name=p_genre)
+        movies = genre.movies.all()
+
+    if pick_date:
+        p_date = pick_date[0]
+        if p_date == '80-90년대':
+            movies = movies.filter(release_date__lte=datetime.date(1999, 12, 31))
+        elif p_date == '2000년대':
+            movies = movies.filter(release_date__gte=datetime.date(2000, 1, 1)).filter(release_date__lte=datetime.date(2009, 12, 31))
+        elif p_date == '2010년대':
+            movies = movies.filter(release_date__gte=datetime.date(2009, 12, 31))
+
+    dates = ['80-90년대','2000년대', '2010년대']
     context = {
         'movies': movies,
         'genres': genres,
-        'n': n,
-        'movies_filter': movies_filter
+        'movies_filter': movies_filter,
+        'dates': dates,
     }
     return render(request, 'movies/index.html', context)
 
@@ -39,11 +59,15 @@ def movie_filter(request, genre_pk):
     genres= Genre.objects.all()
     genre = Genre.objects.get(pk=genre_pk)
     movies_filter = genre.movies.all()
+
     context= {
         'genres': genres,
         'movies_filter': movies_filter
     }
     return render(request, 'movies/index.html', context)
+
+
+
 
 
 

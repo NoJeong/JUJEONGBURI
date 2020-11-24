@@ -1,27 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<form action="" method="GET">
 
-<nav class="navbar navbar-expand-lg" style="z-index:2;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg" style="z-index:2;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <span class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" 
+      style="color: black;" 
+      href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      모든 장르
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      {% for genre in genres %}
+          <input type="radio" id="genre" name="genre_list" value="{{genre.name}}"/>
+          <label for="genre">{{genre.name}}</label>
+          <br>
+          {% endfor %}
+        </div>
+      </span>
       <span class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" 
         style="color: black;" 
         href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          모든 장르
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          {% for genre in genres %}
-            <a href="{% url 'movies:movie_filter' genre.pk %}" style="color: black;">{{genre.name}}</a><br>
-
-          {% endfor %}
-        </div>
-      </span>
+        연도별
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        {% for date in dates %}
+        <input type="radio" id="date" name="date_list" value="{{date}}"/>
+        <label for="date">{{date}}</label>
+        <br>
+        {% endfor %}
+      </div>
+    </span>
   </div>
+  <button type='submit' class='btn btn-warning' style="color: white;">선택완료</button>
 </nav>
+</form>
+
+
+
+
 
   
 <section>

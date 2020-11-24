@@ -6,9 +6,8 @@
 {% block content %}
 
 
-  <h1 class='d-flex'>Community</h1>
+  <h1 class='jemok'><strong>커뮤니티</strong> </h1>
   {% if user.is_authenticated %}
-  <a href="{% url 'community:create' %}" style='color:black'>NEW</a>
   {% else %}
   <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요]</a>
   {% endif %}
@@ -45,10 +44,21 @@
       {% endfor %}
     </tbody>
   </table>
-  
+  <hr>
+  <a href="{% url 'community:create' %}" class=" new btn btn-outline-dark">새글작성</a>
+
   </div>
   
 
+<style>
+  .jemok {
+    text-align: center;
+  }
+  .new { 
+    position: absolute;
+    right: 200px;
+  }
+</style>
 
 
 {% endblock %}

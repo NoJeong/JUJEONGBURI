@@ -8,7 +8,7 @@
       <h5 class="card-title">제목: {{ article.title }}</h5>
       <h6> 작성자 : {{article.user }}</h6>
       <hr>
-      <p class="card-text">{{ article.content }}</p>
+      <p class="card-text">{{ article.content | safe }}</p>
       <h6 class="card-subtitle mb-2 text-muted">작성 시각: {{ article.created_at }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">작성 시각: {{ article.updated_at }}</h6>
       
@@ -30,15 +30,16 @@
           <form action="{% url 'community:create_comment' article.pk %}" method="POST">
             {% csrf_token %}
             {% bootstrap_form comment_form %}
-            <input type="submit">
+            <input class="btn btn-primary" type="submit">
           </form>
           {% else %}
           <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
           {% endif %}
 
           
+          <br>
+          <h4><strong>댓글 목록</strong> </h4>
           <hr>
-          <h4>댓글 목록</h4>
           {% for comment in comments %}
           <div>
             {{ comment.user }} - {{ comment.content }}
@@ -50,7 +51,7 @@
             {% endif %}
           </div>
           {% empty %}
-          <p><b>댓글이 없어요..</b></p>
+          <p style="opacity: 0.6;"><b>댓글이 없어요..</b></p>
           {% endfor %}
           <br>
           <a href="{% url 'community:index' %}"><i class="far fa-hand-point-left" style="font-size: 30px;" ></i></a>
@@ -63,5 +64,5 @@
     color:black;
   }
 </style>
-{% endblock  %}
 
+{% endblock  %}

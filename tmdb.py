@@ -59,5 +59,6 @@ for n in movie_list:
                 movie.genre.add(genre['id'])
     except:
         pass
-    
-# open("db.json","wb").write(open("db.json").read().decode("unicode_escape").encode("utf8"))
+
+    with open('moviess.json','w',encoding="utf-8") as make_file:
+        json.dump(movieData,make_file,ensure_ascii=False,indent="\t")
