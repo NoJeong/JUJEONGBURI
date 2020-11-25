@@ -1,17 +1,17 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
-
 from .models import Movie, Review, Genre
 from .forms import ReviewForm
 from django.db.models import Q
+from .genre_info import GENRE
 import datetime
 
 
 def first(request):
     movies = Movie.objects.order_by('-pk')
-    movies_audience = Movie.objects.order_by('-audience')
-    movies_rank = Movie.objects.order_by('-rank')
+    movies_audience = Movie.objects.order_by('-popularity')
+    movies_rank = Movie.objects.order_by('-vote_average')
     movies_release_date = Movie.objects.order_by('-release_date')
     context = {
         'movies': movies,
@@ -25,16 +25,15 @@ def first(request):
 
 def movie_list (request):
     movies = Movie.objects.order_by('-pk')
-    genres = Genre.objects.all()
-    movies_filter=[]
-
     genre_date = request.GET.getlist('genre_list')
     pick_date = request.GET.getlist('date_list')
 
     if genre_date:
-        p_genre = genre_date[0]
-        genre = Genre.objects.get(name=p_genre)
-        movies = genre.movies.all()
+        for ge in GENRE:
+            if ge['name'] == genre_date[0]:
+                genre_i = ge['id']
+        movies = movies.filter(genres__icontains=genre_i)
+
 
     if pick_date:
         p_date = pick_date[0]
@@ -42,27 +41,111 @@ def movie_list (request):
             movies = movies.filter(release_date__lte=datetime.date(1999, 12, 31))
         elif p_date == '2000년대':
             movies = movies.filter(release_date__gte=datetime.date(2000, 1, 1)).filter(release_date__lte=datetime.date(2009, 12, 31))
-        elif p_date == '2010년대':
+        elif p_date == '2010년대 이후':
             movies = movies.filter(release_date__gte=datetime.date(2009, 12, 31))
+    
+    genres = []
+    for gn in GENRE:
+        genres.append(gn['name'])
 
-    dates = ['80-90년대','2000년대', '2010년대']
+
+
+    dates = ['80-90년대','2000년대', '2010년대 이후']
     context = {
         'movies': movies,
         'genres': genres,
-        'movies_filter': movies_filter,
         'dates': dates,
     }
     return render(request, 'movies/index.html', context)
 
 
-def movie_filter(request, genre_pk):
-    genres= Genre.objects.all()
-    genre = Genre.objects.get(pk=genre_pk)
-    movies_filter = genre.movies.all()
+def movie_mbti(request):
 
-    context= {
-        'genres': genres,
-        'movies_filter': movies_filter
+    return render(request, 'movies/movie_mbti.html')
+
+
+@require_GET
+def movie_mbti_search(request):
+    movies = Movie.objects.order_by('-pk')
+    make_mbti = []
+    first = request.GET.get('first_value')
+    second = request.GET.get('second_value')
+    third = request.GET.get('third_value')
+    fourth = request.GET.get('fourth_value')
+    make_mbti.append(first)
+    make_mbti.append(second)
+    make_mbti.append(third)
+    make_mbti.append(fourth)
+    
+#  User.objects.filter(Q(first_name__startswith='R')|Q(last_name__startswith='D'))
+
+    if make_mbti == ['짬뽕','찍먹','비냉','밀떡'] :
+        movies = movies.filter(Q(genres__icontains=12) | Q (genres__icontains=14))
+        ment = '당신은 주정부리식 ISTJ 소금형 사람입니다.'
+
+    elif make_mbti == ['짬뽕','찍먹','물냉','밀떡']:
+        movies = movies.exclude(genres__icontains =14)
+        ment = '당신은 주정부리식 ESTJ 사업가형 사람입니다.'
+
+    elif make_mbti == ['짜장','부먹','물냉','쌀떡']:
+        movies = movies.filter(Q(genres__icontains=37) | Q (genres__icontains=36))
+        ment = '당신은 주정부리식 ISFJ 권력형 사람입니다.'
+
+    elif make_mbti == ['짬뽕','부먹','물냉','밀떡']:
+        movies = movies.filter(Q(genres__icontains=27) | Q (genres__icontains=53))
+        ment = '당신은 주정부리식 ENFP 스파크형 사람입니다.'
+    
+    elif make_mbti == ['짜장','부먹','물냉','밀떡']:
+        movies =  movies.filter(Q(genres__icontains=10751) | Q (genres__icontains=18) | Q(popularity__gte=52))
+        ment = '당신은 주정부리식 ESFJ 친선도모형 사람입니다.'
+
+    elif make_mbti == ['짜장','찍먹','물냉','쌀떡']:
+        movies = movies.filter(Q(genres__icontains=10402) | Q (genres__icontains=99))
+        ment = '당신은 주정부리식 INFP 잔다르크형 사람입니다.'
+
+    elif make_mbti == ['짬뽕','부먹','비냉','쌀떡']:
+        movies = movies.filter(Q(genres__icontains=10751) | Q (genres__icontains=10749))
+        ment = '당신은 주정부리식 ISFP 성인군자형 사람입니다.'
+
+    elif make_mbti == ['짜장','부먹','비냉','쌀떡']:
+        movies = movies.filter(Q(genres__icontains=878))
+        ment = '당신은 주정부리식 INTJ 과학자형 사람입니다.'
+
+    elif make_mbti == ['짬뽕','찍먹','물냉','쌀떡']:
+        movies = movies.filter(Q(popularity__gte=52)| Q(vote_average__gte=7.0))
+        ment = '당신은 주정부리식 ESFP 사교형 사람입니다.'
+
+    elif make_mbti == ['짜장','부먹','비냉','밀떡']:
+        movies = movies.filter(Q(genres__icontains=9648)| Q(vote_average__gte=7.0))
+        ment = '당신은 주정부리식 ISTP 백과사전형 사람입니다.'
+
+    elif make_mbti == ['짬뽕','부먹','비냉','밀떡']:
+        movies = movies.filter(Q(popularity__gte=52)| Q(release_date__lte=datetime.date(1999, 12, 31)))
+        ment = '당신은 주정부리식 ISTP 백과사전형 사람입니다.'
+
+    elif make_mbti == ['짜장','찍먹','물냉','밀떡']:
+        movies = movies.all()
+        ment = '당신은 주정부리식 ESTP 활동가형 사람입니다.'
+
+    elif make_mbti == ['짜장','찍먹','비냉','밀떡']:
+        movies = movies.filter(Q(genres__icontains=28)| Q(genres__icontains=10752))
+        ment = '당신은 주정부리식 INTP 아이디어형 사람입니다.'
+
+    elif make_mbti == ['짬뽕','부먹','물냉','쌀떡']:
+        movies = movies.filter(Q(genres__icontains=28)| Q(genres__icontains=14))
+        ment = '당신은 주정부리식 ENTJ 지도자형 사람입니다.'
+
+    elif make_mbti == ['짬뽕','찍먹','비냉','쌀떡']:
+        movies = movies.filter(Q(genres__icontains=14)| Q(genres__icontains=878))
+        ment = '당신은 주정부리식 ENTP 발명가형 사람입니다.'
+
+    elif make_mbti == ['짜장','찍먹','비냉','쌀떡']:
+        movies = movies.filter(Q(genres__icontains=10752)| Q(genres__icontains=35))
+        ment = '당신은 주정부리식 ENFJ 언변능숙형 사람입니다.'
+    
+    context = {
+        'movies': movies,
+        'ment': ment
     }
     return render(request, 'movies/index.html', context)
 
@@ -87,10 +170,19 @@ def movie_search(request):
 
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
+    genre_name = []
+
+
+    for gen in GENRE:
+        print(gen['id'])
+        if str(gen['id']) in movie.genres:
+            genre_name.append(gen['name'])
+
     reviews = movie.review_set.all()
     review_form = ReviewForm()
     N=range(5)
     context= {
+        'genre_name': genre_name,
         'movie': movie,
         'review_form': review_form,
         'reviews' : reviews,

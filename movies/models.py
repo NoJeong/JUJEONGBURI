@@ -7,17 +7,21 @@ class Genre(models.Model):
 
 
 class Movie(models.Model):
-    title = models.CharField(max_length=30)
-    rank = models.IntegerField()
-    audience = models.IntegerField()
     adult = models.BooleanField()
-    poster_url = models.TextField()
+    genres = models.CharField(max_length=50)
+    popularity = models.IntegerField()
+    original_language = models.CharField(max_length=50)
+    original_title = models.CharField(max_length=50)
+    poster_path = models.TextField()
+    title = models.CharField(max_length=30)
+    vote_average = models.IntegerField()
+    vote_count = models.IntegerField()
     overview = models.TextField()
-    original_lang = models.CharField(max_length=50)
     release_date = models.DateField()
-    genre = models.ManyToManyField(Genre, symmetrical=False, related_name='movies')
     video = models.CharField(max_length=500)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_movies', blank=True)
+    # genre_relation = models.ManyToManyField(Genre, related_name = 'movies', blank=True)
+
 
 
 class Review(models.Model): 

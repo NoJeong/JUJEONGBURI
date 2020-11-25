@@ -41,7 +41,7 @@
       </li>
       {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:signup' %}">정보수정</a>
+          <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
@@ -124,7 +124,7 @@
       <div class="swiper-slide" style="cursor:pointer;">
         <div class='card'>
           <div class='.imageDiv'>
-            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}'>
+            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_path}}'>
             <div class="overlay">
               <a href="{% url 'movies:movie_detail' movie.pk %}">
                 <i id='plus' class="fas fa-plus-circle d-inline"></i>
@@ -171,7 +171,7 @@
       <div class="swiper-slide" style="cursor:pointer;">
         <div class='card'>
           <div class='.imageDiv'>
-            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}'>
+            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_path}}'>
             <div class="overlay">
               <a href="{% url 'movies:movie_detail' movie.pk %}">
                 <i id='plus' class="fas fa-plus-circle d-inline"></i>
@@ -218,7 +218,7 @@
       <div class="swiper-slide" style="cursor:pointer;">
         <div class='card'>
           <div class='.imageDiv'>
-            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_url}}'>
+            <img src='https://image.tmdb.org/t/p/w200/{{movie.poster_path}}'>
             <div class="overlay">
               <a href="{% url 'movies:movie_detail' movie.pk %}">
                 <i id='plus' class="fas fa-plus-circle d-inline"></i>
@@ -416,6 +416,9 @@
             el.style.color = 'white'
           })
         }
+      })
+      .catch(function(err) {
+        console.log(err)
       })
     })
   })

@@ -22,7 +22,7 @@
           </form>
           <form action="{% url 'community:delete' article.pk %}" method="POST" class='d-inline'>
             {% csrf_token %}
-            <input class='btn btn-primary' type="submit" value="DELETE">
+            <input class='btn btn-danger' type="submit" value="DELETE">
           </form>
           {% endif %}
           <hr>
@@ -30,7 +30,7 @@
           <form action="{% url 'community:create_comment' article.pk %}" method="POST">
             {% csrf_token %}
             {% bootstrap_form comment_form %}
-            <input class="btn btn-primary" type="submit">
+            <input class="btn btn-warning" type="submit" style='color: white;'>
           </form>
           {% else %}
           <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
@@ -54,7 +54,7 @@
           <p style="opacity: 0.6;"><b>댓글이 없어요..</b></p>
           {% endfor %}
           <br>
-          <a href="{% url 'community:index' %}"><i class="far fa-hand-point-left" style="font-size: 30px;" ></i></a>
+          <a href="{% url 'community:index' %}"><i class="fas fa-arrow-left" style="font-size: 30px;" ></i></a>
         </div>
       </div>
     </div>

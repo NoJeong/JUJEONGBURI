@@ -17,6 +17,7 @@
   </style>
 </head>
 <body> 
+
 <nav class="fixed-top navbar navbar-expand-lg navbar-dark" style='background-color: black'>
   <a class="nav-link active text-white" href="{% url 'movies:first' %}"><strong>주정부리</strong></a>
 
@@ -32,6 +33,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{% url 'movies:movie_list' %}">보고싶어요</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'movies:movie_mbti' %}">성향분석</a>
+      </li>
       {% elif request.user.is_authenticated %}
       <li class="nav-item">
         <a class="nav-link" href="{% url 'community:index' %}"><strong>
@@ -41,15 +45,18 @@
         <a class="nav-link" href="{% url 'movies:movie_list' %}">
         <strong>보고싶어요</strong></a>
       </li>
+            <li class="nav-item">
+        <a class="nav-link" href="{% url 'movies:movie_mbti' %}"><strong>성향분석</strong></a>
+      </li>
 
 
 
       {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:signup' %}">signup</a>
+          <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'accounts:login' %}">login</a>
+          <a class="nav-link" href="{% url 'accounts:login' %}">로그인</a>
         </li>
       {% endif %}
     </ul>
@@ -67,15 +74,16 @@
           {{request.user.username}}<i class="far fa-user-circle"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'accounts:profile' request.user.username %}">profile</a>
-          <a class="dropdown-item" href="{% url 'accounts:update' %}">update</a>
-          <a class="dropdown-item" href="{% url 'accounts:logout' %}">logout</a>
+          <a class="dropdown-item" href="{% url 'accounts:profile' request.user.username %}">프로필</a>
+          <a class="dropdown-item" href="{% url 'accounts:update' %}">정보수정</a>
+          <a class="dropdown-item" href="{% url 'accounts:logout' %}">로그아웃</a>
         </div>
       </div>
   </form>
   {% endif %}
   </div>
 </nav>
+
 <style>
   nav {
     opacity: 0.8;
