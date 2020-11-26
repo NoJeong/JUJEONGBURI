@@ -174,7 +174,6 @@ def movie_detail(request, movie_pk):
 
 
     for gen in GENRE:
-        print(gen['id'])
         if str(gen['id']) in movie.genres:
             genre_name.append(gen['name'])
 

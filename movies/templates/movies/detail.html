@@ -77,12 +77,13 @@
           {% endif %}
         {% endfor %}
       </td>
-      <td>{{ review.user }}&nbsp;&nbsp;&nbsp;&nbsp;s
+      <td>{{ review.user }}&nbsp;&nbsp;&nbsp;&nbsp;
+        {% if request.user == review.user %}
         <form action="{% url 'movies:reviews_delete' movie.pk review.pk%}" method="POST" class='d-inline'>
           {% csrf_token %}
           <input type="submit" value='x' class='btn btn-danger'>
         </form>
-
+        {% endif %}
 
       </td>
     </tr>
