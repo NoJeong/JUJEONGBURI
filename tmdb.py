@@ -90,7 +90,7 @@ import json
 
 
 
-movie_list = range(800, 1230)
+movie_list = range(100, 500)
 movielist=[]
 
 for n in movie_list:
