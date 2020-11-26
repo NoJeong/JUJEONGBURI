@@ -392,7 +392,7 @@
       const movieId = event.target.dataset.movieId
       const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
-      axios.post(`http://127.0.0.1:8000/movies/${movieId}/like/`, {}, {
+      axios.post(`https://final-pjtjj.heroku.com/movies/${movieId}/like/`, {}, {
         headers: {
           'X-CSRFToken': csrftoken
         }}
