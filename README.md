@@ -1,6 +1,6 @@
 # 주정부리 final_pjt
 
-> 배포 서버 !
+> 배포 서버 !!
 >
 > https://final-pjtjj.herokuapp.com/
 
