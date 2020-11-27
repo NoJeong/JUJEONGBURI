@@ -48,11 +48,11 @@
 
 ### 영화
 
-### ![](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\1.PNG)
+### ![](README.assets/1.PNG)
 
 
 
-![2](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\2.PNG)
+![](README.assets/2.PNG)
 
 첫 페이지 animation 을 이용 
 
@@ -62,9 +62,9 @@
 
 - 영화 장르별 찾기, 검색 엔진 이용하여 영화 찾기
 
-![3](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\3.PNG)
+![](README.assets/3.PNG)
 
-![5](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\5.PNG)
+![](README.assets/5.PNG)
 
 장르별 영화 찾기는 form 태그와 getlist 함수를 이용하여 체크한 input 값을 들고와서 일치하는 영화를 찾아와 보여준다.
 
@@ -74,9 +74,9 @@
 
 - 주정부리식 mbti  영화 추천
 
-![8](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\8.PNG)
+![](README.assets/8.PNG)
 
-![6](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\6.PNG)
+![](README.assets/6.PNG)
 
 주정부리식 mbti 데이터는 기존에 인터넷에 있던 한국식 mbti 부먹찍먹.. 순위별과 한국인 mbti 순위를 조합하였고, 그 성향에 맞는 조건들을 filter 로 넣어 추천할 수 있도록 하였습니다.
 
@@ -84,7 +84,7 @@
 
 - 좋아요 기능
 
-![like](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\like.png)
+![](README.assets/like.png)
 
 axios 로 요청을 보내어 하트를 클릭했을때 다시 화면이 켜지지않도록 하였습니다.
 
@@ -92,7 +92,7 @@ axios 로 요청을 보내어 하트를 클릭했을때 다시 화면이 켜지�
 
 - 영화 상세 페이지
 
-![7](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\7.PNG)
+![](README.assets/7.PNG)
 
 영화 tmdb에서 영화 티저 유튜브 키를 받아오고 유튜브키가 있는 영화들만 따로 받아와 볼 수 있도록 만들었습니다.
 
@@ -102,7 +102,7 @@ axios 로 요청을 보내어 하트를 클릭했을때 다시 화면이 켜지�
 
 - 게시판 구분 
 
-![4](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\4.PNG)
+![](README.assets/4.PNG)
 
 각각의 게시판을 구분해서 볼 수 있습니다.
 
@@ -118,7 +118,7 @@ admin 관리자가 접속하였을 때, 따로 admin 페이지로 이동하여 �
 
 ### 프로필
 
-![9](C:\Users\dea03\Downloads\9.PNG)
+![](README.assets/9.PNG)
 
 프로필 페이지에서 좋아요 한 영화, 리뷰를 작성한 영화, 게시글, 댓글 등등을 볼 수 있도록 구현하였습니다. 기본적인 로그인 로그아웃 회원가입 정보수정 또한 구현하였습니다.
 
@@ -126,11 +126,11 @@ admin 관리자가 접속하였을 때, 따로 admin 페이지로 이동하여 �
 
 ### 데이터베이스 모델링 (ERD)
 
-![ERD](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\ERD.png)
+![](README.assets/ERD.png)
 
 ### Trello
 
-![trello](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\trello.png)
+![](README.assets/trello.png)
 
 
 
