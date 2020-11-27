@@ -48,7 +48,7 @@
 
 ### 영화
 
-### ![1](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\1.PNG)
+### ![](C:\Users\dea03\ssafy\dont_touch_master\projects\final_pjt_4\final_pjt_django\README_image\1.PNG)
 
 
 
